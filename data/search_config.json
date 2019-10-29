@@ -1,0 +1,98 @@
+{
+    "Records" : [
+        {
+            "keywords":"king_crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+        },
+        {
+            "keywords":"aslaskan crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"chesapeake bay crabs",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"CRAB",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+        {
+            "keywords":"crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"baby crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"young mitten crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"crabs",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"crab in net",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"mitten crab in wild",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"mitten crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        },
+{
+            "keywords":"blue crab",
+            "output_directory":"crab_imgs",
+            "limit":500,
+            "chromedriver":"/usr/local/bin/chromedriver"
+
+
+        }
+    ]
+}
