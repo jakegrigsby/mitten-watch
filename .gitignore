@@ -1,2 +1,6 @@
 data/raw_crab_scrape/*
 data/cleaned_crabs/*
+data/tiny-imagenet-crabs/*
+data/tiny-imagenet-tfrecords/*
+data/tiny-imagenet-tfrecordstiny_imagenet.pickle
+data/Tiny-ImageNet-to-TFRecords/*
