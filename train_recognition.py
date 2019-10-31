@@ -2,6 +2,9 @@ import os
 import argparse
 
 import tensorflow as tf
+import tensorflow_hub as hub
+
+import data
 
 def make_results_dirs(run_name, base_path='saves'):
     """ Create directory to save logs & checkpoints
@@ -29,27 +32,43 @@ def make_results_dirs(run_name, base_path='saves'):
     os.makedirs(log_dir)
     return log_dir, checkpoint_dir
 
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-name', type=str, default='run')
+    parser.add_argument('-train', type=int, default=150)
+    parser.add_argument('-test', type=int, default=200)
+    parser.add_argument('-batch', type=int, default=64)
     args = parser.parse_args()
 
-    model = tf.keras.models.Sequential([
-        tf.keras.applications.MobileNetV2(include_top=False),
-        tf.keras.layers.Dense(512, activation='relu'),
-        tf.keras.layers.Dense(1, activation='sigmoid')
-        ])
+
 
     log_dir, ckpt_dir = make_results_dirs(args.name)
 
-    callbacks = [
-            tf.keras.callbacks.Tensorboard(log_dir=log_dir),
-            tf.keras.EarlyStopping(monitor='f1'),
-            tf.keras.callbacks.ModelCheckpoint(ckpt_dir, monitor='f1', save_best_only=True)
+    mobilenet = tf.keras.applications.MobileNetV2(input_shape=[data.load.IMG_HEIGHT, data.load.IMG_WIDTH, 3], include_top=False, weights='imagenet')
+    mobilenet.trainable = False
+    model = tf.keras.models.Sequential([
+        mobilenet,
+        tf.keras.layers.GlobalAveragePooling2D(),
+        tf.keras.layers.Dense(1, activation='sigmoid'),
+    ])
+    model.summary()
+
+    metrics =[
+            tf.keras.metrics.Precision(name='precision'),
+            tf.keras.metrics.Recall(name='recall'),
+            tf.keras.metrics.FalsePositives(name='fp'),
+            tf.keras.metrics.FalseNegatives(name='fn'),
             ]
 
-    for negative_training_classes in range(5, 205, 25):
-        pos_train, neg_train, pos_test, neg_test = data.imagenet_open_set(negative_training_classes)
+    model.compile(optimizer=tf.keras.optimizers.Adam(), loss=tf.keras.losses.BinaryCrossentropy(), metrics=metrics)
 
+    callbacks = [
+            tf.keras.callbacks.TensorBoard(log_dir=log_dir),
+            tf.keras.callbacks.EarlyStopping(monitor='precision'),
+            tf.keras.callbacks.ModelCheckpoint(ckpt_dir, monitor='recall', save_best_only=True)
+            ]
+
+    train, val = data.load.open_set(args.train, args.test, args.batch)
+
+    print(f"Openness: {100*data.load.openness(args.train, args.test)}%")
+    history = model.fit(train, validation_data=val, epochs=100, callbacks=callbacks, verbose=1)
