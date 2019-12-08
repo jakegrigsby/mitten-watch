@@ -38,6 +38,8 @@ def make_untrained_model():
             mobilenet,
             tf.keras.layers.GlobalAveragePooling2D(),
             tf.keras.layers.Dropout(.5),
+            tf.keras.layers.Dense(256, activation='sigmoid', kernel_regularizer=tf.keras.regularizers.l2(.1)),
+            tf.keras.layers.Dropout(.5),
             tf.keras.layers.Dense(1, activation='sigmoid', kernel_regularizer=tf.keras.regularizers.l2(.1)),
         ])
     return model
